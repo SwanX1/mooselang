@@ -1,4 +1,4 @@
-import { ParseError } from "./InterpreterError";
+import { ParseError } from "./MooseError";
 
 export interface PrimitiveElement {
   position: {
@@ -164,8 +164,8 @@ export default class Tokenizer {
         this.incrementPointer(nextToken.offset);
         this.tokens.push({
           position: {
-            line: this.line,
-            column: this.column
+            line: this.line + 1,
+            column: this.column + 1
           },
           value: nextToken.value
         });

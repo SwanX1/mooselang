@@ -1,4 +1,4 @@
-export class InterpreterError extends Error {
+export class MooseError extends Error {
   constructor(message: string, script: string, line: number, column: number) {
     let scriptLines = script.replace(/\x1b/g, " ").split('\n');
     let lines = [
@@ -25,5 +25,5 @@ export class InterpreterError extends Error {
   }
 }
 
-export class ParseError extends InterpreterError { }
-export class SyntaxError extends InterpreterError { }
+export class ParseError extends MooseError { }
+export class SyntaxError extends MooseError { }

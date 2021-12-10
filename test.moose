@@ -1,4 +1,4 @@
-export func main = (string[] args) int {
+export func main(string[] args) int {
   print(getGreeting(DEFAULT_GREETING_NAME));
   const int a = 2;
   int b;
@@ -10,7 +10,7 @@ export func main = (string[] args) int {
 
 const string DEFAULT_GREETING_NAME = "World";
 
-func getGreeting = (string name) string {
+func getGreeting(string name) string {
   if (name == "" || name == DEFAULT_GREETING_NAME) {
     return getGreeting(DEFAULT_GREETING_NAME);
   } else {

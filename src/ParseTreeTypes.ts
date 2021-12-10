@@ -26,7 +26,7 @@ export interface AbstractDeclarationElement extends AbstractSyntaxElement {
 }
 
 export interface FunctionDeclarationElement extends ConstantDeclarationElement {
-  name: "function";
+  type: "function";
   value: FunctionElement;
 }
 

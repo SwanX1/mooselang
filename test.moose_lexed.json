@@ -1,0 +1,77 @@
+{
+  "file": "test.moose",
+  "elements": [
+    {
+      "element": "declaration",
+      "name": "main",
+      "constant": true,
+      "exported": true,
+      "type": "function",
+      "value": {
+        "position": {
+          "line": 1,
+          "column": 1
+        },
+        "returnType": "int",
+        "arguments": [
+          {
+            "name": "args",
+            "type": "string[]",
+            "position": {
+              "line": 1,
+              "column": 18
+            }
+          }
+        ],
+        "elements": []
+      },
+      "position": {
+        "line": 1,
+        "column": 1
+      }
+    },
+    {},
+    {},
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}

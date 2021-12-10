@@ -1,365 +1,354 @@
-{
-  "file": "test.moose",
-  "tokens": [
-    {
-      "position": "0,0",
-      "value": "export"
-    },
-    {
-      "position": "0,7",
-      "value": "func"
-    },
-    {
-      "position": "0,12",
-      "value": "main"
-    },
-    {
-      "position": "0,17",
-      "value": "="
-    },
-    {
-      "position": "0,19",
-      "value": "("
-    },
-    {
-      "position": "0,20",
-      "value": "string"
-    },
-    {
-      "position": "0,26",
-      "value": "[]"
-    },
-    {
-      "position": "0,29",
-      "value": "args"
-    },
-    {
-      "position": "0,33",
-      "value": ")"
-    },
-    {
-      "position": "0,35",
-      "value": "int"
-    },
-    {
-      "position": "0,39",
-      "value": "{"
-    },
-    {
-      "position": "1,3",
-      "value": "print"
-    },
-    {
-      "position": "1,8",
-      "value": "("
-    },
-    {
-      "position": "1,9",
-      "value": "getGreeting"
-    },
-    {
-      "position": "1,20",
-      "value": "("
-    },
-    {
-      "position": "1,21",
-      "value": "DEFAULT_GREETING_NAME"
-    },
-    {
-      "position": "1,42",
-      "value": ")"
-    },
-    {
-      "position": "1,43",
-      "value": ")"
-    },
-    {
-      "position": "1,44",
-      "value": ";"
-    },
-    {
-      "position": "2,3",
-      "value": "const"
-    },
-    {
-      "position": "2,9",
-      "value": "int"
-    },
-    {
-      "position": "2,13",
-      "value": "a"
-    },
-    {
-      "position": "2,15",
-      "value": "="
-    },
-    {
-      "position": "2,17",
-      "value": "2"
-    },
-    {
-      "position": "2,18",
-      "value": ";"
-    },
-    {
-      "position": "3,3",
-      "value": "int"
-    },
-    {
-      "position": "3,7",
-      "value": "b"
-    },
-    {
-      "position": "3,8",
-      "value": ";"
-    },
-    {
-      "position": "4,3",
-      "value": "b"
-    },
-    {
-      "position": "4,5",
-      "value": "="
-    },
-    {
-      "position": "4,7",
-      "value": "5"
-    },
-    {
-      "position": "4,8",
-      "value": ";"
-    },
-    {
-      "position": "5,3",
-      "value": "b"
-    },
-    {
-      "position": "5,4",
-      "value": "++"
-    },
-    {
-      "position": "5,6",
-      "value": ";"
-    },
-    {
-      "position": "6,3",
-      "value": "print"
-    },
-    {
-      "position": "6,8",
-      "value": "("
-    },
-    {
-      "position": "6,9",
-      "value": "a"
-    },
-    {
-      "position": "6,11",
-      "value": "*"
-    },
-    {
-      "position": "6,13",
-      "value": "b"
-    },
-    {
-      "position": "6,14",
-      "value": ")"
-    },
-    {
-      "position": "6,15",
-      "value": ";"
-    },
-    {
-      "position": "7,3",
-      "value": "return"
-    },
-    {
-      "position": "7,10",
-      "value": "0"
-    },
-    {
-      "position": "7,11",
-      "value": ";"
-    },
-    {
-      "position": "8,1",
-      "value": "}"
-    },
-    {
-      "position": "10,1",
-      "value": "const"
-    },
-    {
-      "position": "10,7",
-      "value": "string"
-    },
-    {
-      "position": "10,14",
-      "value": "DEFAULT_GREETING_NAME"
-    },
-    {
-      "position": "10,36",
-      "value": "="
-    },
-    {
-      "position": "10,38",
-      "value": "\"World\""
-    },
-    {
-      "position": "10,45",
-      "value": ";"
-    },
-    {
-      "position": "12,1",
-      "value": "func"
-    },
-    {
-      "position": "12,6",
-      "value": "getGreeting"
-    },
-    {
-      "position": "12,18",
-      "value": "="
-    },
-    {
-      "position": "12,20",
-      "value": "("
-    },
-    {
-      "position": "12,21",
-      "value": "string"
-    },
-    {
-      "position": "12,28",
-      "value": "name"
-    },
-    {
-      "position": "12,32",
-      "value": ")"
-    },
-    {
-      "position": "12,34",
-      "value": "string"
-    },
-    {
-      "position": "12,41",
-      "value": "{"
-    },
-    {
-      "position": "13,3",
-      "value": "if"
-    },
-    {
-      "position": "13,6",
-      "value": "("
-    },
-    {
-      "position": "13,7",
-      "value": "name"
-    },
-    {
-      "position": "13,12",
-      "value": "=="
-    },
-    {
-      "position": "13,15",
-      "value": "\"\""
-    },
-    {
-      "position": "13,18",
-      "value": "||"
-    },
-    {
-      "position": "13,21",
-      "value": "name"
-    },
-    {
-      "position": "13,26",
-      "value": "=="
-    },
-    {
-      "position": "13,29",
-      "value": "DEFAULT_GREETING_NAME"
-    },
-    {
-      "position": "13,50",
-      "value": ")"
-    },
-    {
-      "position": "13,52",
-      "value": "{"
-    },
-    {
-      "position": "14,5",
-      "value": "return"
-    },
-    {
-      "position": "14,12",
-      "value": "getGreeting"
-    },
-    {
-      "position": "14,23",
-      "value": "("
-    },
-    {
-      "position": "14,24",
-      "value": "DEFAULT_GREETING_NAME"
-    },
-    {
-      "position": "14,45",
-      "value": ")"
-    },
-    {
-      "position": "14,46",
-      "value": ";"
-    },
-    {
-      "position": "15,3",
-      "value": "}"
-    },
-    {
-      "position": "15,5",
-      "value": "else"
-    },
-    {
-      "position": "15,10",
-      "value": "{"
-    },
-    {
-      "position": "16,5",
-      "value": "return"
-    },
-    {
-      "position": "16,12",
-      "value": "\"Hello, \""
-    },
-    {
-      "position": "16,22",
-      "value": "+"
-    },
-    {
-      "position": "16,24",
-      "value": "name"
-    },
-    {
-      "position": "16,29",
-      "value": "+"
-    },
-    {
-      "position": "16,31",
-      "value": "\"!\""
-    },
-    {
-      "position": "16,34",
-      "value": ";"
-    },
-    {
-      "position": "17,3",
-      "value": "}"
-    },
-    {
-      "position": "18,1",
-      "value": "}"
-    }
-  ]
-}
+[
+  {
+    "position": "1,1",
+    "value": "export"
+  },
+  {
+    "position": "1,8",
+    "value": "func"
+  },
+  {
+    "position": "1,13",
+    "value": "main"
+  },
+  {
+    "position": "1,17",
+    "value": "("
+  },
+  {
+    "position": "1,18",
+    "value": "string"
+  },
+  {
+    "position": "1,24",
+    "value": "[]"
+  },
+  {
+    "position": "1,27",
+    "value": "args"
+  },
+  {
+    "position": "1,31",
+    "value": ")"
+  },
+  {
+    "position": "1,33",
+    "value": "int"
+  },
+  {
+    "position": "1,37",
+    "value": "{"
+  },
+  {
+    "position": "2,4",
+    "value": "print"
+  },
+  {
+    "position": "2,9",
+    "value": "("
+  },
+  {
+    "position": "2,10",
+    "value": "getGreeting"
+  },
+  {
+    "position": "2,21",
+    "value": "("
+  },
+  {
+    "position": "2,22",
+    "value": "DEFAULT_GREETING_NAME"
+  },
+  {
+    "position": "2,43",
+    "value": ")"
+  },
+  {
+    "position": "2,44",
+    "value": ")"
+  },
+  {
+    "position": "2,45",
+    "value": ";"
+  },
+  {
+    "position": "3,4",
+    "value": "const"
+  },
+  {
+    "position": "3,10",
+    "value": "int"
+  },
+  {
+    "position": "3,14",
+    "value": "a"
+  },
+  {
+    "position": "3,16",
+    "value": "="
+  },
+  {
+    "position": "3,18",
+    "value": "2"
+  },
+  {
+    "position": "3,19",
+    "value": ";"
+  },
+  {
+    "position": "4,4",
+    "value": "int"
+  },
+  {
+    "position": "4,8",
+    "value": "b"
+  },
+  {
+    "position": "4,9",
+    "value": ";"
+  },
+  {
+    "position": "5,4",
+    "value": "b"
+  },
+  {
+    "position": "5,6",
+    "value": "="
+  },
+  {
+    "position": "5,8",
+    "value": "5"
+  },
+  {
+    "position": "5,9",
+    "value": ";"
+  },
+  {
+    "position": "6,4",
+    "value": "b"
+  },
+  {
+    "position": "6,5",
+    "value": "++"
+  },
+  {
+    "position": "6,7",
+    "value": ";"
+  },
+  {
+    "position": "7,4",
+    "value": "print"
+  },
+  {
+    "position": "7,9",
+    "value": "("
+  },
+  {
+    "position": "7,10",
+    "value": "a"
+  },
+  {
+    "position": "7,12",
+    "value": "*"
+  },
+  {
+    "position": "7,14",
+    "value": "b"
+  },
+  {
+    "position": "7,15",
+    "value": ")"
+  },
+  {
+    "position": "7,16",
+    "value": ";"
+  },
+  {
+    "position": "8,4",
+    "value": "return"
+  },
+  {
+    "position": "8,11",
+    "value": "0"
+  },
+  {
+    "position": "8,12",
+    "value": ";"
+  },
+  {
+    "position": "9,2",
+    "value": "}"
+  },
+  {
+    "position": "11,2",
+    "value": "const"
+  },
+  {
+    "position": "11,8",
+    "value": "string"
+  },
+  {
+    "position": "11,15",
+    "value": "DEFAULT_GREETING_NAME"
+  },
+  {
+    "position": "11,37",
+    "value": "="
+  },
+  {
+    "position": "11,39",
+    "value": "\"World\""
+  },
+  {
+    "position": "11,46",
+    "value": ";"
+  },
+  {
+    "position": "13,2",
+    "value": "func"
+  },
+  {
+    "position": "13,7",
+    "value": "getGreeting"
+  },
+  {
+    "position": "13,18",
+    "value": "("
+  },
+  {
+    "position": "13,19",
+    "value": "string"
+  },
+  {
+    "position": "13,26",
+    "value": "name"
+  },
+  {
+    "position": "13,30",
+    "value": ")"
+  },
+  {
+    "position": "13,32",
+    "value": "string"
+  },
+  {
+    "position": "13,39",
+    "value": "{"
+  },
+  {
+    "position": "14,4",
+    "value": "if"
+  },
+  {
+    "position": "14,7",
+    "value": "("
+  },
+  {
+    "position": "14,8",
+    "value": "name"
+  },
+  {
+    "position": "14,13",
+    "value": "=="
+  },
+  {
+    "position": "14,16",
+    "value": "\"\""
+  },
+  {
+    "position": "14,19",
+    "value": "||"
+  },
+  {
+    "position": "14,22",
+    "value": "name"
+  },
+  {
+    "position": "14,27",
+    "value": "=="
+  },
+  {
+    "position": "14,30",
+    "value": "DEFAULT_GREETING_NAME"
+  },
+  {
+    "position": "14,51",
+    "value": ")"
+  },
+  {
+    "position": "14,53",
+    "value": "{"
+  },
+  {
+    "position": "15,6",
+    "value": "return"
+  },
+  {
+    "position": "15,13",
+    "value": "getGreeting"
+  },
+  {
+    "position": "15,24",
+    "value": "("
+  },
+  {
+    "position": "15,25",
+    "value": "DEFAULT_GREETING_NAME"
+  },
+  {
+    "position": "15,46",
+    "value": ")"
+  },
+  {
+    "position": "15,47",
+    "value": ";"
+  },
+  {
+    "position": "16,4",
+    "value": "}"
+  },
+  {
+    "position": "16,6",
+    "value": "else"
+  },
+  {
+    "position": "16,11",
+    "value": "{"
+  },
+  {
+    "position": "17,6",
+    "value": "return"
+  },
+  {
+    "position": "17,13",
+    "value": "\"Hello, \""
+  },
+  {
+    "position": "17,23",
+    "value": "+"
+  },
+  {
+    "position": "17,25",
+    "value": "name"
+  },
+  {
+    "position": "17,30",
+    "value": "+"
+  },
+  {
+    "position": "17,32",
+    "value": "\"!\""
+  },
+  {
+    "position": "17,35",
+    "value": ";"
+  },
+  {
+    "position": "18,4",
+    "value": "}"
+  },
+  {
+    "position": "19,2",
+    "value": "}"
+  }
+]
