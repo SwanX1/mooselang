@@ -1,0 +1,16 @@
+{
+  "main": "./dist/index.js",
+  "esnext": "./src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w"
+  },
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.12",
+    "@types/node": "latest",
+    "typescript": "next"
+  }
+}

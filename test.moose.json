@@ -1,0 +1,233 @@
+{
+  "file": "test.moose",
+  "elements": [
+    {
+      "element": "declaration",
+      "name": "main",
+      "constant": true,
+      "exported": true,
+      "type": "function",
+      "value": {
+        "returnType": "int",
+        "arguments": [
+          {
+            "name": "args",
+            "type": "string[]",
+            "optional": false
+          }
+        ],
+        "elements": [
+          {
+            "element": "invoke",
+            "name": "print",
+            "arguments": [
+              {
+                "element": "invoke",
+                "name": "getGreeting",
+                "arguments": [
+                  {
+                    "element": "reference",
+                    "value": "DEFAULT_GREETING_NAME"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "element": "declaration",
+            "name": "a",
+            "constant": true,
+            "exported": false,
+            "type": "int",
+            "value": {
+              "element": "literal",
+              "value": 2
+            }
+          },
+          {
+            "element": "declaration",
+            "name": "b",
+            "constant": false,
+            "exported": false,
+            "type": "int"
+          },
+          {
+            "element": "assignment",
+            "name": "b",
+            "value": {
+              "element": "literal",
+              "value": 5
+            }
+          },
+          {
+            "element": "assignment",
+            "name": "b",
+            "value": {
+              "element": "invoke",
+              "name": "add",
+              "arguments": [
+                {
+                  "element": "reference",
+                  "value": "b"
+                },
+                {
+                  "element": "literal",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          {
+            "element": "invoke",
+            "name": "print",
+            "arguments": [
+              {
+                "element": "invoke",
+                "name": "multiply",
+                "arguments": [
+                  {
+                    "element": "reference",
+                    "value": "a"
+                  },
+                  {
+                    "element": "reference",
+                    "value": "b"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "element": "invoke",
+            "name": "return",
+            "arguments": [
+              {
+                "element": "literal",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "element": "declaration",
+      "name": "DEFAULT_GREETING_NAME",
+      "constant": true,
+      "exported": false,
+      "type": "string",
+      "value": {
+        "element": "literal",
+        "value": "World"
+      }
+    },
+    {
+      "element": "declaration",
+      "name": "getGreeting",
+      "constant": true,
+      "exported": false,
+      "type": "function",
+      "value": {
+        "returnType": "string",
+        "arguments": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "elements": [
+          {
+            "element": "statement",
+            "type": "if",
+            "value": {
+              "condition": {
+                "element": "invoke",
+                "name": "or",
+                "arguments": [
+                  {
+                    "element": "invoke",
+                    "name": "equals",
+                    "arguments": [
+                      {
+                        "element": "reference",
+                        "value": "name"
+                      },
+                      {
+                        "element": "literal",
+                        "value": ""
+                      }
+                    ]
+                  },
+                  {
+                    "element": "invoke",
+                    "name": "equals",
+                    "arguments": [
+                      {
+                        "element": "reference",
+                        "value": "name"
+                      },
+                      {
+                        "element": "reference",
+                        "value": "DEFAULT_GREETING_NAME"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "elements": [
+                {
+                  "element": "invoke",
+                  "name": "return",
+                  "arguments": [
+                    {
+                      "element": "invoke",
+                      "name": "getGreeting",
+                      "arguments": [
+                        {
+                          "element": "reference",
+                          "value": "DEFAULT_GREETING_NAME"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "element": "statement",
+            "type": "else",
+            "value": {
+              "elements": [
+                {
+                  "element": "invoke",
+                  "name": "return",
+                  "arguments": [
+                    {
+                      "element": "invoke",
+                      "name": "concat",
+                      "arguments": [
+                        {
+                          "element": "literal",
+                          "value": "Hello, "
+                        },
+                        {
+                          "element": "reference",
+                          "value": "name"
+                        },
+                        {
+                          "element": "literal",
+                          "value": "!"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
