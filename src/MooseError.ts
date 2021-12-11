@@ -20,7 +20,7 @@ export class MooseError extends Error {
         lines.push(`\x1b[90m${(line + i + 1).toString().padStart((line + 3).toString().length, " ")} | ${scriptLines[line + i]}\x1b[39m`);
       }
     }
-    lines = lines.map(line => line.trimEnd().substring(0, 80));
+    lines = lines.map(line => line.trimEnd());
     super(`\n${lines.join("\n")}`);
   }
 }

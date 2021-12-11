@@ -1,19 +1,19 @@
 export func main(string[] args) int {
-  print(getGreeting(DEFAULT_GREETING_NAME));
   const int a = 2;
   int b;
   b = 5;
   b++;
-  print(a * b);
+  print(multiply(a, b));
+  print(getGreeting(DEFAULT_GREETING_NAME));
   return 0;
 }
 
 const string DEFAULT_GREETING_NAME = "World";
 
 func getGreeting(string name) string {
-  if (name == "" || name == DEFAULT_GREETING_NAME) {
+  if (or(equals(name, ""), equals(name, DEFAULT_GREETING_NAME))) {
     return getGreeting(DEFAULT_GREETING_NAME);
   } else {
-    return "Hello, " + name + "!";
+    return concat("Hello, ", name, "!");
   }
 }

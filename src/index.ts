@@ -9,7 +9,7 @@ async function main() {
   const tokenizer = new Tokenizer(script, "test.moose");
   const { tokens } = tokenizer.parse();
   const lexer = new Lexer(tokens, script, "test.moose");
-  const elementTree = lexer.parse();
+  const elementTree = lexer.parse(process.argv.slice(2).includes("--force"));
   fs.writeFile("test.moose_tokenized.json", JSON.stringify(tokens, (key, value) => {
     return key === "position" ? `${value.line},${value.column}` : value;
   }, 2));

@@ -1,3 +1,4 @@
+import { TOKEN_LIST } from "./Constants";
 import { ParseError } from "./MooseError";
 
 export interface PrimitiveElement {
@@ -9,23 +10,6 @@ export interface PrimitiveElement {
 }
 
 export default class Tokenizer {
-  /**
-   * Tokens that are to be seperated from other keywords.
-   * They cannot be used in keywords and must always be by themselves as a token.
-   * The most common tokens must be last (i.e. `==` must be before `=`)
-   */
-  private static SPECIAL_TOKENS: string[] = [
-    "[]",                             // Array type indicator
-    "(", ")", "{", "}", "[", "]",     // Brackets
-    "<<", ">>",                       // Bitshift operators
-    "==", "!=", "<=", ">=", "<", ">", // Equality operators
-    "!", "&&", "||", "^^",            // Boolean operators
-    "++", "--", "=", ".",             // Miscellaneous operators
-    "%", "-", "+", "/", "**", "*",    // Math operators
-    "^", "&", "~", "|",               // Bitwise operators
-    ";",                              // Statement terminator
-  ];
-
   private parsed: boolean = false;
   private tokenized: boolean = false;
   private tokens: PrimitiveElement[] = [];
@@ -115,9 +99,9 @@ export default class Tokenizer {
     }
 
     if (value === "") {
-      const maxTokenSize = Tokenizer.SPECIAL_TOKENS.reduce((prev, cur) => Math.max(prev, cur.length), 0);
+      const maxTokenSize = TOKEN_LIST.reduce((prev, cur) => Math.max(prev, cur.length), 0);
       for (let i = maxTokenSize; i > 0; i--) {
-        const specialToken = Tokenizer.SPECIAL_TOKENS.find(e => e === this.script.slice(this.pointer + offset, this.pointer + offset + i));
+        const specialToken = TOKEN_LIST.find(e => e === this.script.slice(this.pointer + offset, this.pointer + offset + i));
         if (typeof specialToken !== "undefined") {
           value = specialToken;
           break;
@@ -130,7 +114,7 @@ export default class Tokenizer {
         this.pointer,
         Math.min(
           this.script.indexOf(" ", this.pointer),
-          ...Tokenizer.SPECIAL_TOKENS
+          ...TOKEN_LIST
             .map(token => this.script.indexOf(token, this.pointer))
             .filter(tokenIndex => tokenIndex >= this.pointer)
         )
@@ -165,7 +149,7 @@ export default class Tokenizer {
         this.tokens.push({
           position: {
             line: this.line + 1,
-            column: this.column + 1
+            column: this.column
           },
           value: nextToken.value
         });

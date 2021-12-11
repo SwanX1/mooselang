@@ -1,354 +1,414 @@
 [
   {
-    "position": "1,1",
+    "position": "1,0",
     "value": "export"
   },
   {
-    "position": "1,8",
+    "position": "1,7",
     "value": "func"
   },
   {
-    "position": "1,13",
+    "position": "1,12",
     "value": "main"
   },
   {
-    "position": "1,17",
+    "position": "1,16",
     "value": "("
   },
   {
-    "position": "1,18",
+    "position": "1,17",
     "value": "string"
   },
   {
-    "position": "1,24",
+    "position": "1,23",
     "value": "[]"
   },
   {
-    "position": "1,27",
+    "position": "1,26",
     "value": "args"
   },
   {
-    "position": "1,31",
+    "position": "1,30",
     "value": ")"
   },
   {
-    "position": "1,33",
+    "position": "1,32",
     "value": "int"
   },
   {
-    "position": "1,37",
+    "position": "1,36",
     "value": "{"
   },
   {
-    "position": "2,4",
-    "value": "print"
+    "position": "2,3",
+    "value": "const"
   },
   {
     "position": "2,9",
-    "value": "("
-  },
-  {
-    "position": "2,10",
-    "value": "getGreeting"
-  },
-  {
-    "position": "2,21",
-    "value": "("
-  },
-  {
-    "position": "2,22",
-    "value": "DEFAULT_GREETING_NAME"
-  },
-  {
-    "position": "2,43",
-    "value": ")"
-  },
-  {
-    "position": "2,44",
-    "value": ")"
-  },
-  {
-    "position": "2,45",
-    "value": ";"
-  },
-  {
-    "position": "3,4",
-    "value": "const"
-  },
-  {
-    "position": "3,10",
     "value": "int"
   },
   {
-    "position": "3,14",
+    "position": "2,13",
     "value": "a"
   },
   {
-    "position": "3,16",
+    "position": "2,15",
     "value": "="
   },
   {
-    "position": "3,18",
+    "position": "2,17",
     "value": "2"
   },
   {
-    "position": "3,19",
+    "position": "2,18",
     "value": ";"
   },
   {
-    "position": "4,4",
+    "position": "3,3",
     "value": "int"
   },
   {
-    "position": "4,8",
+    "position": "3,7",
     "value": "b"
   },
   {
-    "position": "4,9",
+    "position": "3,8",
     "value": ";"
   },
   {
-    "position": "5,4",
+    "position": "4,3",
     "value": "b"
   },
   {
-    "position": "5,6",
+    "position": "4,5",
     "value": "="
   },
   {
-    "position": "5,8",
+    "position": "4,7",
     "value": "5"
   },
   {
-    "position": "5,9",
+    "position": "4,8",
     "value": ";"
   },
   {
-    "position": "6,4",
+    "position": "5,3",
     "value": "b"
   },
   {
-    "position": "6,5",
+    "position": "5,4",
     "value": "++"
   },
   {
-    "position": "6,7",
+    "position": "5,6",
     "value": ";"
   },
   {
-    "position": "7,4",
+    "position": "6,3",
     "value": "print"
   },
   {
-    "position": "7,9",
+    "position": "6,8",
     "value": "("
   },
   {
-    "position": "7,10",
+    "position": "6,9",
+    "value": "multiply"
+  },
+  {
+    "position": "6,17",
+    "value": "("
+  },
+  {
+    "position": "6,18",
     "value": "a"
   },
   {
-    "position": "7,12",
-    "value": "*"
+    "position": "6,19",
+    "value": ","
   },
   {
-    "position": "7,14",
+    "position": "6,21",
     "value": "b"
   },
   {
-    "position": "7,15",
+    "position": "6,22",
     "value": ")"
   },
   {
-    "position": "7,16",
+    "position": "6,23",
+    "value": ")"
+  },
+  {
+    "position": "6,24",
     "value": ";"
   },
   {
-    "position": "8,4",
+    "position": "7,3",
+    "value": "print"
+  },
+  {
+    "position": "7,8",
+    "value": "("
+  },
+  {
+    "position": "7,9",
+    "value": "getGreeting"
+  },
+  {
+    "position": "7,20",
+    "value": "("
+  },
+  {
+    "position": "7,21",
+    "value": "DEFAULT_GREETING_NAME"
+  },
+  {
+    "position": "7,42",
+    "value": ")"
+  },
+  {
+    "position": "7,43",
+    "value": ")"
+  },
+  {
+    "position": "7,44",
+    "value": ";"
+  },
+  {
+    "position": "8,3",
     "value": "return"
   },
   {
-    "position": "8,11",
+    "position": "8,10",
     "value": "0"
   },
   {
-    "position": "8,12",
+    "position": "8,11",
     "value": ";"
   },
   {
-    "position": "9,2",
+    "position": "9,1",
     "value": "}"
   },
   {
-    "position": "11,2",
+    "position": "11,1",
     "value": "const"
   },
   {
-    "position": "11,8",
+    "position": "11,7",
     "value": "string"
   },
   {
-    "position": "11,15",
+    "position": "11,14",
     "value": "DEFAULT_GREETING_NAME"
   },
   {
-    "position": "11,37",
+    "position": "11,36",
     "value": "="
   },
   {
-    "position": "11,39",
+    "position": "11,38",
     "value": "\"World\""
   },
   {
-    "position": "11,46",
+    "position": "11,45",
     "value": ";"
   },
   {
-    "position": "13,2",
+    "position": "13,1",
     "value": "func"
   },
   {
-    "position": "13,7",
+    "position": "13,6",
     "value": "getGreeting"
+  },
+  {
+    "position": "13,17",
+    "value": "("
   },
   {
     "position": "13,18",
-    "value": "("
-  },
-  {
-    "position": "13,19",
     "value": "string"
   },
   {
-    "position": "13,26",
+    "position": "13,25",
     "value": "name"
   },
   {
-    "position": "13,30",
+    "position": "13,29",
     "value": ")"
   },
   {
-    "position": "13,32",
+    "position": "13,31",
     "value": "string"
   },
   {
-    "position": "13,39",
+    "position": "13,38",
     "value": "{"
   },
   {
-    "position": "14,4",
+    "position": "14,3",
     "value": "if"
   },
   {
-    "position": "14,7",
+    "position": "14,6",
     "value": "("
   },
   {
-    "position": "14,8",
-    "value": "name"
+    "position": "14,7",
+    "value": "or"
   },
   {
-    "position": "14,13",
-    "value": "=="
+    "position": "14,9",
+    "value": "("
+  },
+  {
+    "position": "14,10",
+    "value": "equals"
   },
   {
     "position": "14,16",
-    "value": "\"\""
-  },
-  {
-    "position": "14,19",
-    "value": "||"
-  },
-  {
-    "position": "14,22",
-    "value": "name"
-  },
-  {
-    "position": "14,27",
-    "value": "=="
-  },
-  {
-    "position": "14,30",
-    "value": "DEFAULT_GREETING_NAME"
-  },
-  {
-    "position": "14,51",
-    "value": ")"
-  },
-  {
-    "position": "14,53",
-    "value": "{"
-  },
-  {
-    "position": "15,6",
-    "value": "return"
-  },
-  {
-    "position": "15,13",
-    "value": "getGreeting"
-  },
-  {
-    "position": "15,24",
     "value": "("
   },
   {
-    "position": "15,25",
-    "value": "DEFAULT_GREETING_NAME"
-  },
-  {
-    "position": "15,46",
-    "value": ")"
-  },
-  {
-    "position": "15,47",
-    "value": ";"
-  },
-  {
-    "position": "16,4",
-    "value": "}"
-  },
-  {
-    "position": "16,6",
-    "value": "else"
-  },
-  {
-    "position": "16,11",
-    "value": "{"
-  },
-  {
-    "position": "17,6",
-    "value": "return"
-  },
-  {
-    "position": "17,13",
-    "value": "\"Hello, \""
-  },
-  {
-    "position": "17,23",
-    "value": "+"
-  },
-  {
-    "position": "17,25",
+    "position": "14,17",
     "value": "name"
   },
   {
-    "position": "17,30",
-    "value": "+"
+    "position": "14,21",
+    "value": ","
   },
   {
-    "position": "17,32",
-    "value": "\"!\""
+    "position": "14,23",
+    "value": "\"\""
   },
   {
-    "position": "17,35",
+    "position": "14,25",
+    "value": ")"
+  },
+  {
+    "position": "14,26",
+    "value": ","
+  },
+  {
+    "position": "14,28",
+    "value": "equals"
+  },
+  {
+    "position": "14,34",
+    "value": "("
+  },
+  {
+    "position": "14,35",
+    "value": "name"
+  },
+  {
+    "position": "14,39",
+    "value": ","
+  },
+  {
+    "position": "14,41",
+    "value": "DEFAULT_GREETING_NAME"
+  },
+  {
+    "position": "14,62",
+    "value": ")"
+  },
+  {
+    "position": "14,63",
+    "value": ")"
+  },
+  {
+    "position": "14,64",
+    "value": ")"
+  },
+  {
+    "position": "14,66",
+    "value": "{"
+  },
+  {
+    "position": "15,5",
+    "value": "return"
+  },
+  {
+    "position": "15,12",
+    "value": "getGreeting"
+  },
+  {
+    "position": "15,23",
+    "value": "("
+  },
+  {
+    "position": "15,24",
+    "value": "DEFAULT_GREETING_NAME"
+  },
+  {
+    "position": "15,45",
+    "value": ")"
+  },
+  {
+    "position": "15,46",
     "value": ";"
   },
   {
-    "position": "18,4",
+    "position": "16,3",
     "value": "}"
   },
   {
-    "position": "19,2",
+    "position": "16,5",
+    "value": "else"
+  },
+  {
+    "position": "16,10",
+    "value": "{"
+  },
+  {
+    "position": "17,5",
+    "value": "return"
+  },
+  {
+    "position": "17,12",
+    "value": "concat"
+  },
+  {
+    "position": "17,18",
+    "value": "("
+  },
+  {
+    "position": "17,19",
+    "value": "\"Hello, \""
+  },
+  {
+    "position": "17,28",
+    "value": ","
+  },
+  {
+    "position": "17,30",
+    "value": "name"
+  },
+  {
+    "position": "17,34",
+    "value": ","
+  },
+  {
+    "position": "17,36",
+    "value": "\"!\""
+  },
+  {
+    "position": "17,39",
+    "value": ")"
+  },
+  {
+    "position": "17,40",
+    "value": ";"
+  },
+  {
+    "position": "18,3",
+    "value": "}"
+  },
+  {
+    "position": "19,1",
     "value": "}"
   }
 ]

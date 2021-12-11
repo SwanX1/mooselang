@@ -25,19 +25,20 @@ export interface AbstractDeclarationElement extends AbstractSyntaxElement {
   type: string;
 }
 
-export interface FunctionDeclarationElement extends ConstantDeclarationElement {
+export interface FunctionDeclarationElement extends AbstractDeclarationElement {
+  constant: true;
   type: "function";
   value: FunctionElement;
 }
 
 export interface ConstantDeclarationElement extends AbstractDeclarationElement {
   constant: true;
-  value: any;
+  value: ReturningSyntaxElement;
 }
 
 export interface DefaultDeclarationElement extends AbstractDeclarationElement {
   constant: false;
-  value?: any;
+  value?: ReturningSyntaxElement;
 }
 //#endregion
 
