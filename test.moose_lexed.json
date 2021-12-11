@@ -30,38 +30,47 @@
         "column": 1
       }
     },
-    {},
-    {},
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+      "element": "declaration",
+      "constant": true,
+      "exported": false,
+      "name": "DEFAULT_GREETING_NAME",
+      "position": {
+        "line": 11,
+        "column": 2
+      },
+      "type": "string",
+      "value": "\"World\""
+    },
+    {
+      "element": "declaration",
+      "name": "getGreeting",
+      "constant": true,
+      "exported": false,
+      "type": "function",
+      "value": {
+        "position": {
+          "line": 13,
+          "column": 2
+        },
+        "returnType": "string",
+        "arguments": [
+          {
+            "name": "name",
+            "type": "string",
+            "position": {
+              "line": 13,
+              "column": 19
+            }
+          }
+        ],
+        "elements": []
+      },
+      "position": {
+        "line": 13,
+        "column": 2
+      }
+    },
     null,
     null,
     null,

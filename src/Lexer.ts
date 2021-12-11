@@ -51,6 +51,8 @@ export class Lexer {
     if (!this.getCurrentToken()) return undefined;
     if (this.nextToken(2) === "=" || this.getCurrentToken() === "export" || this.getCurrentToken() === "const") {
       return this.parseDeclaration();
+    } else if (this.getCurrentToken() === "func") {
+      return this.parseFunctionDeclaration();
     } else if (this.nextToken() === "=") {
       // return this.parseAssignment();
     }
@@ -58,6 +60,7 @@ export class Lexer {
   }
 
   private parseDeclaration(): DeclarationElement {
+    const position = this.tokens[this.tokenPointer].position;
     let exported = false;
     let constant = false;
     let type: string;
@@ -86,13 +89,41 @@ export class Lexer {
         }
         return this.parseFunctionDeclaration();
       } else {
+        this.tokenPointer += i;
         break;
       }
     }
 
+    {
+      const [_type, i] = this.getType();
+      this.tokenPointer += i;
+      type = _type;
+    }
 
+    name = this.getCurrentToken();
+    this.tokenPointer++;
 
-    return {};
+    if (this.getCurrentToken() !== "=") {
+      this.throwErrorOnCurrentToken("Expected '='");
+    }
+    this.tokenPointer++;
+
+    value = this.getCurrentToken();
+    this.tokenPointer++;
+
+    if (this.getCurrentToken() !== ";") {
+      this.throwErrorOnCurrentToken("Expected ';'");
+    }
+
+    return {
+      element: "declaration",
+      constant,
+      exported,
+      name,
+      position,
+      type,
+      value,
+    };
   }
 
   private parseFunctionDeclaration(): FunctionDeclarationElement {
@@ -125,12 +156,11 @@ export class Lexer {
     while (this.getCurrentToken() !== ")") {
       const position = this.tokens[this.tokenPointer]?.position;
 
-      let parameterType: string = this.getCurrentToken();
-      this.tokenPointer++;
-
-      while (this.getCurrentToken() === "[]") {
-        parameterType += "[]";
-        this.tokenPointer++;
+      let parameterType: string;
+      {
+        const [type, i] = this.getType();
+        this.tokenPointer += i;
+        parameterType = type;
       }
 
       const parameterName: string = this.getCurrentToken();
@@ -150,12 +180,10 @@ export class Lexer {
     }
     this.tokenPointer++;
 
-    returnType = this.getCurrentToken();
-    this.tokenPointer++;
-    
-    while (this.getCurrentToken() === "[]") {
-      returnType += "[]";
-      this.tokenPointer++;
+    {
+      const [type, i] = this.getType();
+      this.tokenPointer += i;
+      returnType = type;
     }
 
     if (this.getCurrentToken() !== "{") {
@@ -180,5 +208,19 @@ export class Lexer {
       },
       position: functionPosition,
     };
+  }
+
+  /**
+   * @returns {[string, number]} [type, tokens consumed]
+   */
+  private getType(): [string, number] {
+    let type: string = "";
+    let i = 0;
+    do {
+      type += this.nextToken(i);
+      i++;
+    } while (this.nextToken(i) === "[]");
+
+    return [type, i];
   }
 }
