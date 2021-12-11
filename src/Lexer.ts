@@ -190,7 +190,11 @@ export class Lexer {
       this.throwErrorOnCurrentToken("Expected '{'");
     }
 
+    const elements: SyntaxElement[] = [];
+
     while (this.getCurrentToken() !== "}") {
+      const element = this.parseElement();
+      elements.push(element);
       this.tokenPointer++;
     }
 
@@ -204,7 +208,7 @@ export class Lexer {
         position: functionPosition,
         returnType,
         arguments: parameters,
-        elements: [],
+        elements,
       },
       position: functionPosition,
     };

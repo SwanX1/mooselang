@@ -23,7 +23,56 @@
             }
           }
         ],
-        "elements": []
+        "elements": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          {
+            "element": "declaration",
+            "constant": true,
+            "exported": false,
+            "name": "a",
+            "position": {
+              "line": 3,
+              "column": 4
+            },
+            "type": "int",
+            "value": "2"
+          },
+          null,
+          null,
+          {
+            "element": "declaration",
+            "constant": false,
+            "exported": false,
+            "name": "b",
+            "position": {
+              "line": 4,
+              "column": 9
+            },
+            "type": ";",
+            "value": "5"
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "position": {
         "line": 1,
@@ -64,7 +113,26 @@
             }
           }
         ],
-        "elements": []
+        "elements": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
       },
       "position": {
         "line": 13,
