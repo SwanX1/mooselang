@@ -1,0 +1,13 @@
+print("Hello World!");
+let a: int;
+a = 5;
+const b: int = 5;
+a = a + 1;
+const c: int = a + b;
+print("a =", a);
+print("b =", b);
+print("c =", c);
+
+print("ASM TEST");
+$;ASM TEST$;
+print($setb int 5$);
