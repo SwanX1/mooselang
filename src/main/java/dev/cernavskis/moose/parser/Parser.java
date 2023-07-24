@@ -11,27 +11,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Parser {
-  private final LinkedList<Token> tokenQueue = new LinkedList<>();
-  private final Iterator<Token> tokenIterator;
+  private final List<Token> tokens;
 
-  public Parser(Iterator<Token> tokens) {
-    this.tokenIterator = tokens;
-
-    new Thread(() -> {
-      while (tokenIterator.hasNext()) {
-        Token token = tokenIterator.next();
-        tokenQueue.add(token);
-      }
-    }).start();
+  public Parser(List<Token> tokens) {
+    this.tokens = tokens;
   }
 
   public BlockStatement parse() {
     final List<Statement> elements = new LinkedList<>();
-    final BlockStatement result = new BlockStatement(getDebugInfo(), elements);
     while (!match(TokenType.EOF)) {
       elements.add(statement());
     }
-    return result;
+    return new BlockStatement(getDebugInfo(), new ArrayList<>(elements));
   }
 
   public Token peekToken() {
@@ -40,24 +31,17 @@ public class Parser {
 
   public Token peekToken(int offset) {
     Token token;
-    while (tokenQueue.isEmpty()) {
-      try {
-        Thread.sleep(1);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
-    if (tokenQueue.isEmpty()) {
+    if (tokens.isEmpty()) {
       token = new Token(TokenType.EOF, "", 0, 0, "<unknown>");
     } else {
-      token = tokenQueue.get(offset);
+      token = tokens.get(offset);
     }
     return token;
   }
 
   public Token nextToken() {
     peekToken();
-    return tokenQueue.poll();
+    return tokens.remove(0);
   }
 
   public boolean match(int offset, TokenType type) {
@@ -122,7 +106,7 @@ public class Parser {
 
   private Statement qualifiedName() {
     if (!match(TokenType.IDENTIFIER)) {
-      throw new ParsingException("Expected identifier", getDebugInfo());
+      throw new RuntimeException("Expected identifier");
     }
     return qualifiedName(new VariableStatement(getDebugInfo(), consume(TokenType.IDENTIFIER).value()));
   }
@@ -198,7 +182,13 @@ public class Parser {
   private Statement literal() {
     try {
       DebugInfo debugInfo = getDebugInfo();
-      Statement name = qualifiedName();
+      Statement name;
+      try {
+        name = qualifiedName();
+      } catch (RuntimeException e) {
+        // doesn't matter
+        throw new ParsingException(e.getMessage());
+      }
       if (match(TokenType.PAREN_LEFT)) {
         return functionChain(name);
       }
@@ -253,7 +243,6 @@ public class Parser {
     } else if (match(TokenType.CONSTANT)) {
       return new NumberStatement(debugInfo, consume(TokenType.CONSTANT).value());
     } else if (match(TokenType.ASM)) {
-
       return new LiterallyDontCareStatement(debugInfo, consume(TokenType.ASM).value());
     }
 

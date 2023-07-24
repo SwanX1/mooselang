@@ -1,11 +1,10 @@
 package dev.cernavskis.moose.lexer;
 
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.*;
 
 // Implements iterator so that we can implement this as a stream.
 // This is done to save memory, as well as it allows us to run this on a seperate thread.
-public class Lexer implements Iterator<Token>, Iterable<Token> {
+public class Lexer {
   private final String input;
   private int position = 0;
   // These next three are used for debugging and error messages.
@@ -23,27 +22,14 @@ public class Lexer implements Iterator<Token>, Iterable<Token> {
   }
 
   private boolean hadEOF = false;
-
-  // Implements Iterable
-  public Iterator<Token> iterator() {
-    return this;
-  }
-
-
-  // Implements Iterator
-  @Override
-  public boolean hasNext() {
-    return !hadEOF;
-  }
-
-  // Implements Iterator
-  @Override
-  public Token next() {
-    Token token = nextToken();
-    if (token.type() == TokenType.EOF) {
-      hadEOF = true;
+  public List<Token> getAllTokens() {
+    List<Token> tokens = new LinkedList<>();
+    while (!hadEOF) {
+      Token token = nextToken();
+      tokens.add(token);
+      hadEOF = token.type() == TokenType.EOF;
     }
-    return token;
+    return new ArrayList<>(tokens);
   }
 
   // Okay, this is the real deal.

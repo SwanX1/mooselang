@@ -3,7 +3,6 @@ package dev.cernavskis.moose.compiler;
 import dev.cernavskis.moose.lexer.TokenType;
 import dev.cernavskis.moose.parser.Statement;
 import dev.cernavskis.moose.parser.statement.*;
-import dev.cernavskis.moose.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +29,7 @@ import java.util.Set;
 // pushm - pushes a value from the buffer to memory
 // popm - discards the last value from the memory
 // op [operator] - performs an operation on the register 1 and register 2 values, sets the result to the buffer. if operator is unary, only register 1 is used
-// call [name] - calls a function
+// call [name] [arg_amount] - calls a function
 // jmp [label] - jumps to the label
 // jmpz [label] - jumps to the label if the buffer is zero
 // jpnz [label] - jumps to the label if the buffer is not zero
@@ -97,31 +96,31 @@ public class Bytecoder {
     } else if (statement instanceof FunctionCallStatement functionCall) {
       List<Integer> args = new ArrayList<>(functionCall.arguments().size());
 
-      functionCall.arguments().forEach(argument -> {
+      for (Statement argument : functionCall.arguments()) {
         String argumentResult = compileStatement(argument, state).code();
 
         result.append(argumentResult);
         int tempVariable = state.getTempVariable();
         args.add(tempVariable);
-        result.append(String.format("crsetv $%s\n", tempVariable));
+        result.append("crsetv $" + tempVariable + "\n");
         result.append("clearb\n");
-      });
+      }
 
       String callableResult = compileStatement(functionCall.callable(), state).code();
       result.append(callableResult);
       int tempCallable = state.getTempVariable();
-      result.append(String.format("crsetv $%s\n", tempCallable));
+      result.append("crsetv $").append(tempCallable).append("\n");
       result.append("clearb\n");
 
       for (int tempArgument : args) {
-        result.append(String.format("loadv $%s\n", tempArgument));
-        result.append(String.format("clearv $%s\n", tempArgument));
+        result.append("loadv $").append(tempArgument).append("\n");
+        result.append("clearv $").append(tempArgument).append("\n");
         state.freeVariable(tempArgument);
         result.append("pushm\n");
         result.append("clearb\n");
       }
 
-      result.append(String.format("call $%s %s\n", tempCallable, functionCall.arguments().size()));
+      result.append("call $").append(tempCallable).append(" ").append(functionCall.arguments().size()).append("\n");
       result.append("clearv $").append(tempCallable).append("\n");
       state.freeVariable(tempCallable);
       bufferFilled = true;
@@ -321,11 +320,11 @@ public class Bytecoder {
       int labelFalse = state.getLabel();
       int labelEnd = state.getLabel();
       result.append(compileStatement(ternary.condition(), state));
-      result.append("jpnz ").append(labelFalse).append("\n");
+      result.append("jmpz $").append(labelFalse).append("\n");
 
       result.append("clearb\n");
       result.append(compileStatement(ternary.trueValue(), state));
-      result.append("jmp ").append(labelEnd).append("\n");
+      result.append("jmp $").append(labelEnd).append("\n");
 
       result.append("label $").append(labelFalse).append("\n");
       result.append("clearb\n");

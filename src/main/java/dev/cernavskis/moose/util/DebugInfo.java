@@ -9,7 +9,7 @@ public record DebugInfo(int line, int column, String file, Token token) {
       "line=" + line +
       ", column=" + column +
       ", file='" + file + '\'' +
-      ", token=" + token +
+//      ", token=" + token +
       '}';
   }
 }

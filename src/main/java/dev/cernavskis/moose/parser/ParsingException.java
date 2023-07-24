@@ -6,4 +6,8 @@ public class ParsingException extends RuntimeException {
   public ParsingException(String message, DebugInfo debugInfo) {
     super(message + " at " + debugInfo.toString());
   }
+
+  public ParsingException(String message) {
+    super(message);
+  }
 }

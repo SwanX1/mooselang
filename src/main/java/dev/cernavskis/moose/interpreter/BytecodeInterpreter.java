@@ -4,24 +4,45 @@ import dev.cernavskis.moose.interpreter.types.RuntimeFunction;
 import dev.cernavskis.moose.interpreter.types.RuntimePointer;
 import dev.cernavskis.moose.interpreter.types.RuntimeType;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class BytecodeInterpreter {
   private final String[] bytecode;
+  private final List<RuntimeType<?>> memory = new LinkedList<>();
+  private final Map<String, RuntimeType<?>> variables = new HashMap<>();
+  private final Map<String, Integer> labels = new HashMap<>();
   private RuntimeType<?> register1 = null;
   private RuntimeType<?> register2 = null;
   private RuntimeType<?> buffer = null;
-  private final List<RuntimeType<?>> memory = new LinkedList<>();
-  private final Map<String, RuntimeType<?>> variables = new HashMap<>();
 
   public BytecodeInterpreter(String bytecode) {
     this.bytecode = bytecode.split("\n");
   }
+
   public void executeAll() {
     for (int i = 0; i < bytecode.length; i++) {
+      String line = bytecode[i];
+      if (line.startsWith("label ")) {
+        String[] labelInstruction = line.split(" ");
+        if (labelInstruction.length != 2) {
+          throw new RuntimeException("Invalid label instruction: " + line);
+        }
+        labels.put(labelInstruction[1], i);
+      }
+    }
+    int i = 0;
+    while (i < bytecode.length) {
       try {
-        executeInstruction(bytecode[i]);
+        String instruction = bytecode[i];
+        if (instruction.startsWith("label ") || instruction.startsWith(";")) {
+          i++;
+          continue;
+        }
+        i = executeInstruction(instruction, i);
       } catch (Exception e) {
         e.printStackTrace();
         System.err.println("Error on bytecode line " + (i + 1) + ": " + e.getMessage());
@@ -31,12 +52,9 @@ public class BytecodeInterpreter {
   }
 
   @SuppressWarnings("unchecked")
-  public void executeInstruction(String line) throws InterpreterException {
+  public int executeInstruction(String line, int index) throws InterpreterException {
     String[] lineParts = line.split(" ", 2);
     String instruction = lineParts[0];
-    if (instruction.startsWith(";")) {
-      return;
-    }
     String[] args;
     if (lineParts.length > 1) {
       args = lineParts[1].split(" ", 2);
@@ -243,10 +261,33 @@ public class BytecodeInterpreter {
           buffer = register1.performBinaryOperation(op, register2);
         }
         break;
+      case "jmp":
+      case "jmpz":
+      case "jpnz":
+        String label = args[0];
+        if (!labels.containsKey(label)) {
+          throw new InterpreterException("Label does not exist: " + label);
+        }
+        if (instruction.equals("jmpz") || instruction.equals("jpnz")) {
+          if (buffer == null) {
+            throw new InterpreterException("Buffer is empty");
+          }
+          if (!buffer.getTypeName().equals("bool")) {
+            throw new InterpreterException("Buffer is not a boolean");
+          }
+          if (instruction.equals("jmpz") && (boolean) buffer.getValue()) {
+            break;
+          }
+          if (instruction.equals("jpnz") && !(boolean) buffer.getValue()) {
+            break;
+          }
+        }
+        return labels.get(label);
       default:
         throw new InterpreterException("Unknown instruction: " + instruction);
     }
 
+    return index + 1;
   }
 
   public void setVariable(String name, RuntimeType<?> value) {
