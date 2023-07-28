@@ -1,8 +1,6 @@
 package dev.cernavskis.moose.interpreter;
 
-import dev.cernavskis.moose.interpreter.types.RuntimeFunction;
-import dev.cernavskis.moose.interpreter.types.RuntimePointer;
-import dev.cernavskis.moose.interpreter.types.RuntimeType;
+import dev.cernavskis.moose.interpreter.types.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -237,12 +235,19 @@ public class BytecodeInterpreter {
         if (memory.size() < argCount) {
           throw new InterpreterException("Not enough arguments on memory");
         }
-        RuntimeFunction callable = (RuntimeFunction) variables.get(callableName);
+        RuntimeType<?> callableVar = variables.get(callableName);
+        while (callableVar instanceof RuntimePointer<?> pointer) {
+          callableVar = pointer.getValue();
+        }
+
+        if (!(callableVar instanceof RuntimeFunction)) {
+          throw new InterpreterException("Variable is not callable: " + callableName);
+        }
         RuntimeType<?>[] argsArray = new RuntimeType<?>[argCount];
         for (int i = argCount - 1; i >= 0; i--) {
           argsArray[i] = memory.remove(memory.size() - 1);
         }
-        buffer = callable.call(argsArray);
+        buffer = ((RuntimeFunction) callableVar).call(argsArray);
         break;
       case "op":
         String op = args[0];
@@ -283,6 +288,25 @@ public class BytecodeInterpreter {
           }
         }
         return labels.get(label);
+      case "apush":
+        if (buffer == null) {
+          throw new InterpreterException("Buffer is empty");
+        }
+        if (buffer instanceof RuntimeArray<?> arr) {
+          int size = Integer.parseInt(args[0]);
+          if (memory.size() < size) {
+            throw new InterpreterException("Not enough arguments on memory");
+          }
+          if (arr.getSize() == 0) {
+            arr.setSize(size);
+          }
+          for (int i = size - 1; i >= 0; i--) {
+            arr.setIndex(i, memory.remove(memory.size() - 1));
+          }
+        } else {
+          throw new InterpreterException("Buffer is not an array");
+        }
+        break;
       default:
         throw new InterpreterException("Unknown instruction: " + instruction);
     }

@@ -2,6 +2,7 @@ package dev.cernavskis.moose.interpreter.types;
 
 import dev.cernavskis.moose.interpreter.InterpreterException;
 
+import java.util.ArrayList;
 import java.util.function.Function;
 
 /**
@@ -78,6 +79,15 @@ public abstract class RuntimeType<T> {
     return true;
   }
 
+  public RuntimePointer<T> getPointer() {
+    return new RuntimePointer<>(this);
+  }
+
+  @Override
+  public String toString() {
+    return getValue().toString();
+  }
+
   /**
    * Returns the constructor for this type
    */
@@ -89,6 +99,7 @@ public abstract class RuntimeType<T> {
       case "string" -> RuntimeString::of;
       case "void" -> (o) -> RuntimeVoid.SINGLETON;
       case "func" -> RuntimeFunction::of;
+      case "array" -> (o) -> new RuntimeArray<>(new ArrayList<>(), null);
       default -> throw new IllegalArgumentException("Unknown type " + type);
     };
   }
@@ -133,6 +144,7 @@ public abstract class RuntimeType<T> {
         }
         return valueBuilder.toString();
       };
+      case "array" -> (s) -> new ArrayList<>(Integer.parseInt(s));
       case "void", "func" -> throw new IllegalArgumentException(type + "cannot be converted from string");
       default -> throw new IllegalArgumentException("Unknown type " + type);
     };
@@ -150,7 +162,14 @@ public abstract class RuntimeType<T> {
       case "string" -> new RuntimeString("");
       case "void" -> RuntimeVoid.SINGLETON;
       case "func" -> new RuntimeFunction((args) -> null);
-      default -> throw new IllegalArgumentException("Unknown type: " + type);
+      default -> {
+        if (type.endsWith("[]")) {
+          String innerType = type.substring(0, type.length() - 2);
+          yield new RuntimeArray<>(new ArrayList<>(), innerType);
+        } else {
+          throw new IllegalArgumentException("Unknown type " + type);
+        }
+      }
     };
   }
 }

@@ -339,6 +339,33 @@ public class Bytecoder {
       bufferFilled = true;
     } else if (statement instanceof LiterallyDontCareStatement asm) {
       result.append(asm.code()).append("\n");
+    } else if (statement instanceof PropertyAccessStatement propAccess) {
+      result.append(compileStatement(propAccess.parent(), state));
+      result.append("getp ").append(propAccess.property()).append("\n");
+      bufferFilled = true;
+    } else if (statement instanceof ArrayAccessStatement arrayAccess) {
+      result.append(compileStatement(arrayAccess.parent(), state));
+      int parent = state.getTempVariable();
+      result.append("crsetv $").append(parent).append("\n");
+      result.append("clearb\n");
+      result.append(compileStatement(arrayAccess.index(), state));
+      result.append("setr2\n");
+      result.append("clearb\n");
+      result.append("loadv $").append(parent).append("\n");
+      result.append("clearv $").append(parent).append("\n");
+      result.append("setr1\n");
+      result.append("clearb\n");
+      state.freeVariable(parent);
+      result.append("op [\n");
+      result.append("clearr1\n");
+    } else if (statement instanceof ArrayStatement array) {
+      for (Statement value : array.elements()) {
+        result.append(compileStatement(value, state));
+        result.append("pushm\n");
+        result.append("clearb\n");
+      }
+      result.append("setb array ").append(array.elements().size()).append("\n");
+      result.append("apush ").append(array.elements().size()).append("\n");
     } else {
       throw new RuntimeException("Unknown statement type: " + statement.getClass().getName());
     }

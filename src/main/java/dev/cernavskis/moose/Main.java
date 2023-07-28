@@ -35,7 +35,7 @@ public class Main {
     BytecodeInterpreter interpreter = new BytecodeInterpreter(bytecode);
     interpreter.setVariable("print", new RuntimeFunction((args) -> {
       for (int i = 0; i < args.length; i++) {
-        System.out.print(args[i].getValue());
+        System.out.print(args[i].toString());
         if (i != args.length - 1) {
           System.out.print(" ");
         }

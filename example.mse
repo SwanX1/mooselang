@@ -1,6 +1,6 @@
 print("Hello World!");
 let a: int;
-a = 5;
+a = 3;
 const b: int = 5;
 a = a + 1;
 const c: int = a + b + 6;
@@ -9,6 +9,10 @@ print("b =", b);
 print("c =", c);
 
 print(c > 10 ? "c > 10" : "c <= 10");
+
+const arr: int[] = [1, 2, 3, 4, 5];
+
+print(arr[a]);
 
 print("ASM TEST");
 $;ASM TEST$;

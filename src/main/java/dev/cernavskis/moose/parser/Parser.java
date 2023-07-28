@@ -20,7 +20,13 @@ public class Parser {
   public BlockStatement parse() {
     final List<Statement> elements = new LinkedList<>();
     while (!match(TokenType.EOF)) {
-      elements.add(statement());
+      try {
+        elements.add(statement());
+      } catch (ParsingException e) {
+        System.err.println("Got " + peekToken());
+        System.err.println("Current elements: " + elements);
+        throw new RuntimeException(e);
+      }
     }
     return new BlockStatement(getDebugInfo(), new ArrayList<>(elements));
   }
@@ -199,9 +205,6 @@ public class Parser {
         consume(TokenType.PREDECREMENT);
         return new UnaryExpression(name, TokenType.POSTDECREMENT, debugInfo);
       }
-      if (match(TokenType.ARRAY_LEFT)) {
-        return array();
-      }
       return name;
     } catch (ParsingException e) {
       return value();
@@ -242,6 +245,8 @@ public class Parser {
       return result;
     } else if (match(TokenType.CONSTANT)) {
       return new NumberStatement(debugInfo, consume(TokenType.CONSTANT).value());
+    } else if (match(TokenType.ARRAY_LEFT)) {
+      return array();
     } else if (match(TokenType.ASM)) {
       return new LiterallyDontCareStatement(debugInfo, consume(TokenType.ASM).value());
     }
