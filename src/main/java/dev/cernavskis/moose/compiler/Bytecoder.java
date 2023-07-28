@@ -63,6 +63,10 @@ public class Bytecoder {
 
   private static StatementBytecode compileStatement(Statement statement, State state) {
     StringBuilder result = new StringBuilder();
+    result.append("@")
+      .append(statement.debugInfo().line()).append(",")
+      .append(statement.debugInfo().column()).append(",")
+      .append(statement.debugInfo().file()).append("\n");
     boolean bufferFilled = false;
 
     if (statement instanceof BlockStatement block) {

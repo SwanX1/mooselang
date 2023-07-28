@@ -17,6 +17,10 @@ public class BytecodeInterpreter {
   private RuntimeType<?> register2 = null;
   private RuntimeType<?> buffer = null;
 
+  private int line = 0;
+  private int column = 0;
+  private String file = "<unknown>";
+
   public BytecodeInterpreter(String bytecode) {
     this.bytecode = bytecode.split("\n");
   }
@@ -36,6 +40,17 @@ public class BytecodeInterpreter {
     while (i < bytecode.length) {
       try {
         String instruction = bytecode[i];
+        if (instruction.startsWith("@")) {
+          String[] debugInfo = instruction.split(",", 3);
+          if (debugInfo.length != 3) {
+            throw new RuntimeException("Invalid debug info: " + instruction);
+          }
+          line = Integer.parseInt(debugInfo[0].substring(1));
+          column = Integer.parseInt(debugInfo[1]);
+          file = debugInfo[2];
+          i++;
+          continue;
+        }
         if (instruction.startsWith("label ") || instruction.startsWith(";")) {
           i++;
           continue;
@@ -43,7 +58,7 @@ public class BytecodeInterpreter {
         i = executeInstruction(instruction, i);
       } catch (Exception e) {
         e.printStackTrace();
-        System.err.println("Error on bytecode line " + (i + 1) + ": " + e.getMessage());
+        System.err.printf("Error on line %d: %s (bytecode line %d, %s %d:%d)%n", line, e.getMessage(), i + 1, file, line, column);
         break;
       }
     }
