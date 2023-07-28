@@ -181,11 +181,17 @@ public class Bytecoder {
       bufferFilled = true;
     } else if (statement instanceof BinaryExpression binaryExpression) {
       result.append(compileStatement(binaryExpression.left(), state));
-      result.append("setr1\nclearb\n");
+      int r1 = state.getTempVariable();
+      result.append("crsetv $").append(r1).append("\n");
+      result.append("clearb\n");
       result.append(compileStatement(binaryExpression.right(), state));
       result.append("setr2\nclearb\n");
+      result.append("loadv $").append(r1).append("\n");
+      result.append("setr1\nclearb\n");
       result.append("op ").append(binaryExpression.operator()).append("\n");
       result.append("clearr1\nclearr2\n");
+      result.append("clearv $").append(r1).append("\n");
+      state.freeVariable(r1);
       bufferFilled = true;
     } else if (statement instanceof UnaryExpression unaryExpression) {
       int temp = state.getTempVariable();

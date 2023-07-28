@@ -3,7 +3,7 @@ let a: int;
 a = 5;
 const b: int = 5;
 a = a + 1;
-const c: int = a + b;
+const c: int = a + b + 6;
 print("a =", a);
 print("b =", b);
 print("c =", c);
