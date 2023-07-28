@@ -19,6 +19,7 @@ public class Parser {
 
   public BlockStatement parse() {
     final List<Statement> elements = new LinkedList<>();
+    DebugInfo debugInfo = getDebugInfo();
     while (!match(TokenType.EOF)) {
       try {
         elements.add(statement());
@@ -28,7 +29,7 @@ public class Parser {
         throw new RuntimeException(e);
       }
     }
-    return new BlockStatement(getDebugInfo(), new ArrayList<>(elements));
+    return new BlockStatement(debugInfo, new ArrayList<>(elements));
   }
 
   public Token peekToken() {
@@ -158,18 +159,19 @@ public class Parser {
   }
 
   private Statement unary() {
+    DebugInfo debugInfo = getDebugInfo();
     if (match(TokenType.PREINCREMENT)) {
       consume(TokenType.PREINCREMENT);
-      return new UnaryExpression(primary(), TokenType.PREINCREMENT, getDebugInfo());
+      return new UnaryExpression(primary(), TokenType.PREINCREMENT, debugInfo);
     } else if (match(TokenType.PREDECREMENT)) {
       consume(TokenType.PREDECREMENT);
-      return new UnaryExpression(primary(), TokenType.PREDECREMENT, getDebugInfo());
+      return new UnaryExpression(primary(), TokenType.PREDECREMENT, debugInfo);
     } else if (match(TokenType.BIT_NOT)) {
       consume(TokenType.BIT_NOT);
-      return new UnaryExpression(primary(), TokenType.BIT_NOT, getDebugInfo());
+      return new UnaryExpression(primary(), TokenType.BIT_NOT, debugInfo);
     } else if (match(TokenType.LOGICAL_NOT)) {
       consume(TokenType.LOGICAL_NOT);
-      return new UnaryExpression(primary(), TokenType.LOGICAL_NOT, getDebugInfo());
+      return new UnaryExpression(primary(), TokenType.LOGICAL_NOT, debugInfo);
     }
     return primary();
   }
