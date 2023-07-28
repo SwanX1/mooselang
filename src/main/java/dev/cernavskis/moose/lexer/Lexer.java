@@ -172,6 +172,7 @@ public class Lexer {
           case "else" -> newToken(TokenType.ELSE, value);
           case "for" -> newToken(TokenType.FOR, value);
           case "foreach" -> newToken(TokenType.FOREACH, value);
+          case "do" -> newToken(TokenType.DO, value);
           case "while" -> newToken(TokenType.WHILE, value);
           case "loop" -> newToken(TokenType.LOOP, value);
           case "return" -> newToken(TokenType.RETURN, value);

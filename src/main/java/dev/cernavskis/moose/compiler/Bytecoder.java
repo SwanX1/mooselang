@@ -87,6 +87,7 @@ public class Bytecoder {
       }
     } else if (statement instanceof DeclarationStatement declaration) {
       result.append("createv ").append(declaration.type()).append(" ").append(declaration.name()).append("\n");
+
       Statement value = declaration.value();
       if (value != null) {
         String valueResult = compileStatement(value, state).code();
@@ -393,6 +394,74 @@ public class Bytecoder {
         result.append(compileStatement(ifStatement.elseBranch(), state));
       }
       result.append("label $").append(endLabel).append("\n");
+    } else if (statement instanceof ForStatement forStatement) {
+      int startLabel = state.getLabel();
+      int endLabel = state.getLabel();
+      StringBuilder cleanup = new StringBuilder();
+
+      if (forStatement.initializer() != null) {
+        StatementBytecode initializer = compileStatement(forStatement.initializer(), state);
+        if (forStatement.initializer() instanceof DeclarationStatement declarationStatement) {
+          cleanup.append("clearv ").append(declarationStatement.name()).append("\n");
+        }
+        result.append(initializer);
+        if (initializer.shouldClearBuffer()) {
+          result.append("clearb\n");
+        }
+      }
+      result.append("label $").append(startLabel).append("\n");
+      result.append(compileStatement(forStatement.condition(), state));
+      result.append("jmpz $").append(endLabel).append("\n");
+      result.append("clearb\n");
+      result.append(compileStatement(forStatement.body(), state));
+      if (forStatement.body() instanceof DeclarationStatement declarationStatement) {
+        cleanup.append("clearv ").append(declarationStatement.name()).append("\n");
+      }
+      if (forStatement.increment() != null) {
+        StatementBytecode increment = compileStatement(forStatement.increment(), state);
+        result.append(increment);
+        if (increment.shouldClearBuffer()) {
+          result.append("clearb\n");
+        }
+      }
+      result.append("jmp $").append(startLabel).append("\n");
+      result.append("label $").append(endLabel).append("\n");
+      result.append(cleanup);
+    } else if (statement instanceof WhileStatement whileStatement) {
+      int startLabel = state.getLabel();
+      int endLabel = state.getLabel();
+      result.append("label $").append(startLabel).append("\n");
+      result.append(compileStatement(whileStatement.condition(), state));
+      result.append("jmpz $").append(endLabel).append("\n");
+      result.append("clearb\n");
+      result.append(compileStatement(whileStatement.body(), state));
+      if (whileStatement.body() instanceof DeclarationStatement declarationStatement) {
+        result.append("clearv ").append(declarationStatement.name()).append("\n");
+      }
+      result.append("jmp $").append(startLabel).append("\n");
+      result.append("label $").append(endLabel).append("\n");
+    } else if (statement instanceof DoWhileStatement doWhileStatement) {
+      int startLabel = state.getLabel();
+      int start2Label = state.getLabel();
+      result.append("jmp $").append(start2Label).append("\n");
+      result.append("label $").append(startLabel).append("\n");
+      result.append("clearb\n");
+      result.append("label $").append(start2Label).append("\n");
+      result.append(compileStatement(doWhileStatement.body(), state));
+      if (doWhileStatement.body() instanceof DeclarationStatement declarationStatement) {
+        result.append("clearv ").append(declarationStatement.name()).append("\n");
+      }
+      result.append(compileStatement(doWhileStatement.condition(), state));
+      result.append("jpnz $").append(startLabel).append("\n");
+    } else if (statement instanceof LoopStatement loopStatement) {
+      int startLabel = state.getLabel();
+      result.append("label $").append(startLabel).append("\n");
+      result.append(compileStatement(loopStatement.body(), state));
+      if (loopStatement.body() instanceof DeclarationStatement declarationStatement) {
+        result.append("clearv ").append(declarationStatement.name()).append("\n");
+      }
+      result.append("jmp $").append(startLabel).append("\n");
+      System.out.println("LoopStatement: There is no break statement yet! This will loop forever!");
     } else {
       throw new RuntimeException("Unknown statement type: " + statement.getClass().getName());
     }

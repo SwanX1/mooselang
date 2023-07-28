@@ -14,6 +14,7 @@ public class RuntimeString extends RuntimeType<String> {
   public RuntimeType<?> performBinaryOperation(String operation, RuntimeType<?> other) throws IllegalArgumentException {
     return switch (operation) {
       case "+" -> new RuntimeString(getValue() + other.getValue());
+      case "==" -> new RuntimeBoolean(getValue().equals(other.getValue()));
       default -> throw new IllegalArgumentException("Cannot perform operation " + operation + " on " + getTypeName());
     };
   }

@@ -17,24 +17,25 @@ public class RuntimeInteger extends RuntimeType<Integer> {
     if (!"int".equals(other.getTypeName())) {
       throw new IllegalArgumentException("Cannot perform binary operation on " + getTypeName() + " and " + other.getTypeName());
     }
+    int otherValue = (Integer) other.getValue();
     return switch (operation) {
-      case "+" -> new RuntimeInteger(getValue() + (Integer) other.getValue());
-      case "-" -> new RuntimeInteger(getValue() - (Integer) other.getValue());
-      case "*" -> new RuntimeInteger(getValue() * (Integer) other.getValue());
-      case "/" -> new RuntimeInteger(getValue() / (Integer) other.getValue());
-      case "%" -> new RuntimeInteger(getValue() % (Integer) other.getValue());
-      case "**" -> new RuntimeInteger((int) Math.pow(getValue(), (Integer) other.getValue()));
-      case "==" -> new RuntimeBoolean(getValue() == (Integer) other.getValue());
-      case "!=" -> new RuntimeBoolean(getValue() != (Integer) other.getValue());
-      case ">=" -> new RuntimeBoolean(getValue() >= (Integer) other.getValue());
-      case "<=" -> new RuntimeBoolean(getValue() <= (Integer) other.getValue());
-      case ">" -> new RuntimeBoolean(getValue() > (Integer) other.getValue());
-      case "<" -> new RuntimeBoolean(getValue() < (Integer) other.getValue());
-      case "|" -> new RuntimeInteger(getValue() | (Integer) other.getValue());
-      case "&" -> new RuntimeInteger(getValue() & (Integer) other.getValue());
-      case "^" -> new RuntimeInteger(getValue() ^ (Integer) other.getValue());
-      case ">>" -> new RuntimeInteger(getValue() >> (Integer) other.getValue());
-      case "<<" -> new RuntimeInteger(getValue() << (Integer) other.getValue());
+      case "+" -> new RuntimeInteger(getValue() + otherValue);
+      case "-" -> new RuntimeInteger(getValue() - otherValue);
+      case "*" -> new RuntimeInteger(getValue() * otherValue);
+      case "/" -> new RuntimeInteger(getValue() / otherValue);
+      case "%" -> new RuntimeInteger(getValue() % otherValue);
+      case "**" -> new RuntimeInteger((int) Math.pow(getValue(), otherValue));
+      case "==" -> new RuntimeBoolean(getValue() == otherValue);
+      case "!=" -> new RuntimeBoolean(getValue() != otherValue);
+      case ">=" -> new RuntimeBoolean(getValue() >= otherValue);
+      case "<=" -> new RuntimeBoolean(getValue() <= otherValue);
+      case ">" -> new RuntimeBoolean(getValue() > otherValue);
+      case "<" -> new RuntimeBoolean(getValue() < otherValue);
+      case "|" -> new RuntimeInteger(getValue() | otherValue);
+      case "&" -> new RuntimeInteger(getValue() & otherValue);
+      case "^" -> new RuntimeInteger(getValue() ^ otherValue);
+      case ">>" -> new RuntimeInteger(getValue() >> otherValue);
+      case "<<" -> new RuntimeInteger(getValue() << otherValue);
       default ->
         throw new IllegalArgumentException("Cannot perform binary operation " + operation + " on " + getTypeName());
     };

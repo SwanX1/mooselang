@@ -14,7 +14,7 @@ public enum TokenType {
   LET, CONST,
   IF, ELSE,
   FOR, FOREACH,
-  WHILE, LOOP,
+  WHILE, DO, LOOP,
   RETURN, BREAK, CONTINUE,
   IMPORT, EXPORT,
 

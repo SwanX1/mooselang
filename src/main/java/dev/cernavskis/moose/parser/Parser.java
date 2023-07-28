@@ -81,11 +81,70 @@ public class Parser {
       return letStatement();
     } else if (match(TokenType.IF)) {
       return ifStatement();
+    } else if (match(TokenType.FOR)) {
+      return forStatement();
+    } else if (match(TokenType.WHILE)) {
+      return whileStatement();
+    } else if (match(TokenType.DO)) {
+      return doWhileStatement();
+    } else if (match(TokenType.LOOP)) {
+      return loopStatement();
     }
 
     Statement statement = assignment();
     consume(TokenType.SEMICOLON);
     return statement;
+  }
+
+  private Statement forStatement() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.FOR);
+    consume(TokenType.PAREN_LEFT);
+    Statement initializer = null;
+    if (!match(TokenType.SEMICOLON)) {
+      initializer = statement();
+    }
+    Statement condition = null;
+    if (!match(TokenType.SEMICOLON)) {
+      condition = expression();
+    }
+    consume(TokenType.SEMICOLON);
+    Statement increment = null;
+    if (!match(TokenType.PAREN_RIGHT)) {
+      increment = expression();
+    }
+    consume(TokenType.PAREN_RIGHT);
+    Statement body = blockOrStatement();
+    return new ForStatement(debugInfo, initializer, condition, increment, body);
+  }
+
+  private Statement whileStatement() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.WHILE);
+    consume(TokenType.PAREN_LEFT);
+    Statement condition = expression();
+    consume(TokenType.PAREN_RIGHT);
+    Statement body = blockOrStatement();
+    return new WhileStatement(debugInfo, condition, body);
+  }
+
+  private Statement doWhileStatement() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.DO);
+    Statement body = blockOrStatement();
+    consume(TokenType.WHILE);
+    consume(TokenType.PAREN_LEFT);
+    Statement condition = expression();
+    consume(TokenType.PAREN_RIGHT);
+    consume(TokenType.SEMICOLON);
+    return new DoWhileStatement(debugInfo, condition, body);
+  }
+
+  private Statement loopStatement() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.LOOP);
+    Statement body = blockOrStatement();
+    return new LoopStatement(debugInfo, body);
   }
 
   private Statement ifStatement() {

@@ -278,7 +278,11 @@ public class BytecodeInterpreter {
           if (register2 == null) {
             throw new InterpreterException("Register 2 is empty");
           }
-          buffer = register1.performBinaryOperation(op, register2);
+          RuntimeType<?> r2 = register2;
+          while (r2 instanceof RuntimePointer<?> pointer) {
+            r2 = pointer.getValue();
+          }
+          buffer = register1.performBinaryOperation(op, r2);
         }
         break;
       case "jmp":
