@@ -366,6 +366,29 @@ public class Bytecoder {
       }
       result.append("setb array ").append(array.elements().size()).append("\n");
       result.append("apush ").append(array.elements().size()).append("\n");
+    } else if (statement instanceof IfStatement ifStatement) {
+      boolean hasElse = ifStatement.elseBranch() != null;
+      int elseLabel = -1;
+      if (hasElse) {
+        elseLabel = state.getLabel();
+      }
+      int endLabel = state.getLabel();
+
+      result.append(compileStatement(ifStatement.condition(), state));
+      if (hasElse) {
+        result.append("jmpz $").append(elseLabel).append("\n");
+      } else {
+        result.append("jmpz $").append(endLabel).append("\n");
+      }
+      result.append("clearb\n");
+      result.append(compileStatement(ifStatement.thenBranch(), state));
+      result.append("jmp $").append(endLabel).append("\n");
+      if (hasElse) {
+        result.append("label $").append(elseLabel).append("\n");
+        result.append("clearb\n");
+        result.append(compileStatement(ifStatement.elseBranch(), state));
+      }
+      result.append("label $").append(endLabel).append("\n");
     } else {
       throw new RuntimeException("Unknown statement type: " + statement.getClass().getName());
     }

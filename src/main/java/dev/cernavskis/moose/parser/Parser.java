@@ -79,11 +79,47 @@ public class Parser {
       return constStatement();
     } else if (match(TokenType.LET)) {
       return letStatement();
+    } else if (match(TokenType.IF)) {
+      return ifStatement();
     }
 
     Statement statement = assignment();
     consume(TokenType.SEMICOLON);
     return statement;
+  }
+
+  private Statement ifStatement() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.IF);
+    consume(TokenType.PAREN_LEFT);
+    Statement condition = expression();
+    consume(TokenType.PAREN_RIGHT);
+    Statement thenBranch = blockOrStatement();
+    Statement elseBranch = null;
+    if (match(TokenType.ELSE)) {
+      consume(TokenType.ELSE);
+      elseBranch = blockOrStatement();
+    }
+    return new IfStatement(debugInfo, condition, thenBranch, elseBranch);
+  }
+
+  private Statement blockOrStatement() {
+    if (match(TokenType.BLOCK_LEFT)) {
+      return block();
+    } else {
+      return statement();
+    }
+  }
+
+  private Statement block() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.BLOCK_LEFT);
+    List<Statement> statements = new ArrayList<>();
+    while (!match(TokenType.BLOCK_RIGHT)) {
+      statements.add(statement());
+    }
+    consume(TokenType.BLOCK_RIGHT);
+    return new BlockStatement(debugInfo, statements);
   }
 
   private Statement expression() {
