@@ -12,11 +12,14 @@ public class RuntimePointer<T> extends RuntimeType<RuntimeType<T>> {
 
   @Override
   public RuntimeType<?> performBinaryOperation(String operation, RuntimeType<?> other) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Cannot perform binary operation " + operation + " on " + getTypeName());
+    while (other instanceof RuntimePointer) {
+      other = ((RuntimePointer<?>) other).getValue();
+    }
+    return getValue().performBinaryOperation(operation, other);
   }
 
   @Override
   public RuntimeType<?> performUnaryOperation(String operation) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Cannot perform unary operation " + operation + " on " + getTypeName());
+    return getValue().performUnaryOperation(operation);
   }
 }
