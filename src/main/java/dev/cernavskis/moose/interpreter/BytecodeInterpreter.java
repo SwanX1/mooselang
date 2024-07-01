@@ -161,6 +161,9 @@ public class BytecodeInterpreter {
         }
         register2 = null;
         break;
+      case "clearbe":
+        buffer = null;
+        break;
       case "clearb":
         if (buffer == null) {
           throw new InterpreterException("Buffer is empty");

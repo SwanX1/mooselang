@@ -394,6 +394,7 @@ public class Bytecoder {
         result.append(compileStatement(ifStatement.elseBranch(), state));
       }
       result.append("label $").append(endLabel).append("\n");
+      result.append("clearbe\n");
     } else if (statement instanceof ForStatement forStatement) {
       int startLabel = state.getLabel();
       int endLabel = state.getLabel();
