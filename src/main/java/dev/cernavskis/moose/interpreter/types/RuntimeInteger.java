@@ -1,7 +1,5 @@
 package dev.cernavskis.moose.interpreter.types;
 
-import dev.cernavskis.moose.lexer.TokenType;
-
 public class RuntimeInteger extends RuntimeType<Integer> {
   public RuntimeInteger(Integer value) {
     super(value);
