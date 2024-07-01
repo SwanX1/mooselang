@@ -3,6 +3,7 @@ package dev.cernavskis.moose.compiler;
 import dev.cernavskis.moose.lexer.TokenType;
 import dev.cernavskis.moose.parser.Statement;
 import dev.cernavskis.moose.parser.statement.*;
+import dev.cernavskis.moose.util.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,6 +39,11 @@ public class Bytecoder {
   public static class State {
     private final Set<Integer> usedVariables = new HashSet<>();
     private int lastLabel = 0;
+
+    @Nullable
+    public String lastContinueLabel = null;
+    @Nullable
+    public String lastBreakLabel = null;
 
     public int getLabel() {
       return this.lastLabel++;
@@ -397,7 +403,9 @@ public class Bytecoder {
       result.append("clearbe\n");
     } else if (statement instanceof ForStatement forStatement) {
       int startLabel = state.getLabel();
+      int continueLabel = state.getLabel();
       int endLabel = state.getLabel();
+
       StringBuilder cleanup = new StringBuilder();
 
       if (forStatement.initializer() != null) {
@@ -410,6 +418,13 @@ public class Bytecoder {
           result.append("clearb\n");
         }
       }
+
+      String previousContinue = state.lastContinueLabel;
+      String previousEnd = state.lastBreakLabel;
+
+      state.lastContinueLabel = "$" + continueLabel;
+      state.lastBreakLabel = "$" + endLabel;
+
       result.append("label $").append(startLabel).append("\n");
       result.append(compileStatement(forStatement.condition(), state));
       result.append("jmpz $").append(endLabel).append("\n");
@@ -418,6 +433,7 @@ public class Bytecoder {
       if (forStatement.body() instanceof DeclarationStatement declarationStatement) {
         cleanup.append("clearv ").append(declarationStatement.name()).append("\n");
       }
+      result.append("label $").append(continueLabel).append("\n");
       if (forStatement.increment() != null) {
         StatementBytecode increment = compileStatement(forStatement.increment(), state);
         result.append(increment);
@@ -428,9 +444,19 @@ public class Bytecoder {
       result.append("jmp $").append(startLabel).append("\n");
       result.append("label $").append(endLabel).append("\n");
       result.append(cleanup);
+
+      state.lastContinueLabel = previousContinue;
+      state.lastBreakLabel = previousEnd;
     } else if (statement instanceof WhileStatement whileStatement) {
       int startLabel = state.getLabel();
       int endLabel = state.getLabel();
+
+      String previousContinue = state.lastContinueLabel;
+      String previousEnd = state.lastBreakLabel;
+
+      state.lastContinueLabel = "$" + startLabel;
+      state.lastBreakLabel = "$" + endLabel;
+
       result.append("label $").append(startLabel).append("\n");
       result.append(compileStatement(whileStatement.condition(), state));
       result.append("jmpz $").append(endLabel).append("\n");
@@ -441,28 +467,76 @@ public class Bytecoder {
       }
       result.append("jmp $").append(startLabel).append("\n");
       result.append("label $").append(endLabel).append("\n");
+
+      state.lastContinueLabel = previousContinue;
+      state.lastBreakLabel = previousEnd;
     } else if (statement instanceof DoWhileStatement doWhileStatement) {
       int startLabel = state.getLabel();
-      int start2Label = state.getLabel();
-      result.append("jmp $").append(start2Label).append("\n");
+      int noCheckStartLabel = state.getLabel();
+      int endLabel = state.getLabel();
+
+      String previousContinue = state.lastContinueLabel;
+      String previousEnd = state.lastBreakLabel;
+
+      state.lastContinueLabel = "$" + startLabel;
+      state.lastBreakLabel = "$" + endLabel;
+      
+      result.append("jmp $").append(noCheckStartLabel).append("\n");
       result.append("label $").append(startLabel).append("\n");
       result.append("clearb\n");
-      result.append("label $").append(start2Label).append("\n");
+      result.append("label $").append(noCheckStartLabel).append("\n");
       result.append(compileStatement(doWhileStatement.body(), state));
       if (doWhileStatement.body() instanceof DeclarationStatement declarationStatement) {
         result.append("clearv ").append(declarationStatement.name()).append("\n");
       }
       result.append(compileStatement(doWhileStatement.condition(), state));
       result.append("jpnz $").append(startLabel).append("\n");
+      result.append("label $").append(endLabel).append("\n");
+
+      state.lastContinueLabel = previousContinue;
+      state.lastBreakLabel = previousEnd;
     } else if (statement instanceof LoopStatement loopStatement) {
       int startLabel = state.getLabel();
+      int endLabel = state.getLabel();
+
+      String previousContinue = state.lastContinueLabel;
+      String previousEnd = state.lastBreakLabel;
+
+      state.lastContinueLabel = "$" + startLabel;
+      state.lastBreakLabel = "$" + endLabel;
+
       result.append("label $").append(startLabel).append("\n");
       result.append(compileStatement(loopStatement.body(), state));
       if (loopStatement.body() instanceof DeclarationStatement declarationStatement) {
         result.append("clearv ").append(declarationStatement.name()).append("\n");
       }
       result.append("jmp $").append(startLabel).append("\n");
-      System.out.println("LoopStatement: There is no break statement yet! This will loop forever!");
+      result.append("label $").append(endLabel).append("\n");
+
+      state.lastContinueLabel = previousContinue;
+      state.lastBreakLabel = previousEnd;
+    } else if (statement instanceof BreakStatement breakStatement) {
+      if (state.lastBreakLabel == null) {
+        throw new CompilerException("Break statement outside of loop", breakStatement.debugInfo());
+      }
+
+      if (breakStatement.label() != null) {
+        throw new CompilerException("Break statement labels are not supported yet", breakStatement.debugInfo());
+        // result.append("jmp ").append(breakStatement.label()).append("\n");
+      } else {
+        result.append("jmp ").append(state.lastBreakLabel).append("\n");
+      }
+    } else if (statement instanceof ContinueStatement continueStatement) {
+      if (state.lastContinueLabel == null) {
+        throw new CompilerException("Continue statement outside of loop", continueStatement.debugInfo());
+      }
+
+      if (continueStatement.label() != null) {
+        throw new CompilerException("Continue statement labels are not supported yet", continueStatement.debugInfo());
+        // result.append("jmp ").append(continueStatement.label()).append("\n");
+      } else {
+        result.append("jmp ").append(state.lastContinueLabel).append("\n");
+      }
     } else {
       throw new RuntimeException("Unknown statement type: " + statement.getClass().getName());
     }

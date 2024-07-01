@@ -6,7 +6,6 @@ import dev.cernavskis.moose.util.DebugInfo;
 import dev.cernavskis.moose.lexer.Token;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,11 +88,41 @@ public class Parser {
       return doWhileStatement();
     } else if (match(TokenType.LOOP)) {
       return loopStatement();
+    } else if (match(TokenType.BREAK)) {
+      return breakStatement();
+    } else if (match(TokenType.CONTINUE)) {
+      return continueStatement();
     }
 
     Statement statement = assignment();
     consume(TokenType.SEMICOLON);
     return statement;
+  }
+
+  private Statement breakStatement() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.BREAK);
+
+    Token label = null;
+    if (match(TokenType.IDENTIFIER)) {
+      label = consume(TokenType.IDENTIFIER);
+    }
+
+    consume(TokenType.SEMICOLON);
+    return new BreakStatement(debugInfo, label == null ? null : label.value());
+  }
+
+  private Statement continueStatement() {
+    DebugInfo debugInfo = getDebugInfo();
+    consume(TokenType.CONTINUE);
+
+    Token label = null;
+    if (match(TokenType.IDENTIFIER)) {
+      label = consume(TokenType.IDENTIFIER);
+    }
+
+    consume(TokenType.SEMICOLON);
+    return new ContinueStatement(debugInfo, label == null ? null : label.value());
   }
 
   private Statement forStatement() {

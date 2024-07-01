@@ -4,7 +4,6 @@ import dev.cernavskis.moose.compiler.Bytecoder;
 import dev.cernavskis.moose.interpreter.BytecodeInterpreter;
 import dev.cernavskis.moose.interpreter.types.RuntimeFunction;
 import dev.cernavskis.moose.lexer.Token;
-import dev.cernavskis.moose.parser.Statement;
 import dev.cernavskis.moose.parser.statement.BlockStatement;
 import dev.cernavskis.moose.parser.Parser;
 import dev.cernavskis.moose.lexer.Lexer;
@@ -13,18 +12,25 @@ import java.io.*;
 import java.util.List;
 
 public class Main {
+  private static void tryWrite(String filename, String content) {
+    try {
+      File file = new File(filename);
+      if (file.exists()) {
+        file.delete();
+      }
+      file.createNewFile();
+      FileWriter writer = new FileWriter(file);
+      writer.write(content);
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   public static void main(String[] args) {
     try {
       String compiled = compile(args[0]);
-//      File out = new File("out.mseb");
-//      if (out.exists()) {
-//        out.delete();
-//      }
-//      out.createNewFile();
-//      FileWriter writer = new FileWriter(out);
-//      writer.write(compiled);
-//      writer.close();
+      tryWrite("out.mses", compiled);
       exec(compiled);
     } catch (Throwable e) {
       e.printStackTrace();
@@ -43,7 +49,12 @@ public class Main {
       System.out.println();
       return null;
     }));
+
+    long start = System.nanoTime();
     interpreter.executeAll();
+    long end = System.nanoTime();
+
+    System.out.println("Execution took " + ((float)(end - start)) / 1000000 + "ms");
   }
 
   public static String compile(String inFilename) throws Exception {
@@ -72,17 +83,15 @@ public class Main {
     BlockStatement statement = parser.parse();
     parseTime = System.nanoTime() - start;
 
-//    for (Statement s : statement.statements()) {
-//      System.out.println(s);
-//    }
     start = System.nanoTime();
     String bytecode = Bytecoder.compile(statement);
     compileTime = System.nanoTime() - start;
 
-//    System.out.println("Lexed in " + ((float)lexTime) / 1000000 + "ms");
-//    System.out.println("Parsed in " + ((float)parseTime) / 1000000 + "ms");
-//    System.out.println("Compiled in " + ((float)compileTime) / 1000000 + "ms");
-//    System.out.println("Everything took " + ((float)(lexTime + parseTime + compileTime)) / 1000000 + "ms");
+    System.out.println("Lexed in " + ((float)lexTime) / 1000000 + "ms");
+    System.out.println("Parsed in " + ((float)parseTime) / 1000000 + "ms");
+    System.out.println("Compiled in " + ((float)compileTime) / 1000000 + "ms");
+    System.out.println("Everything took " + ((float)(lexTime + parseTime + compileTime)) / 1000000 + "ms");
+    System.out.println("");
 
     return bytecode;
   }

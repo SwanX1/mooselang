@@ -1,9 +1,14 @@
 plugins {
   id 'java'
+  id 'application'
 }
 
 group 'dev.cernavskis.moose'
 version '0.0.2'
+
+application {
+  mainClass = 'dev.cernavskis.moose.Main'
+}
 
 jar {
   manifest {
