@@ -1,3 +1,7 @@
 .gradle
 .idea
 build
+
+# Added by cargo
+/target
+*.mses
