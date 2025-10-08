@@ -1,0 +1,523 @@
+@1,6,example.mse
+@1,7,example.mse
+@1,21,example.mse
+setb string Hello World!
+crsetv $0
+clearb
+@1,6,example.mse
+loadv print
+crsetv $1
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+call $1 1
+clearv $1
+clearb
+@2,3,example.mse
+createv int a
+@3,1,example.mse
+@3,1,example.mse
+loadv a
+getp @
+crsetv $0
+clearb
+@3,5,example.mse
+setb int 3
+setr1
+clearb
+loadv $0
+setp1
+clearv $0
+clearr1
+clearb
+@4,5,example.mse
+createv int b
+@4,16,example.mse
+setb int 5
+setc
+setv b
+clearb
+@5,1,example.mse
+@5,1,example.mse
+loadv a
+getp @
+crsetv $0
+clearb
+@5,7,example.mse
+@5,5,example.mse
+loadv a
+crsetv $1
+clearb
+@5,9,example.mse
+setb int 1
+setr2
+clearb
+loadv $1
+setr1
+clearb
+op +
+clearr1
+clearr2
+clearv $1
+setr1
+clearb
+loadv $0
+setp1
+clearv $0
+clearr1
+clearb
+@6,5,example.mse
+createv int c
+@6,18,example.mse
+@6,16,example.mse
+loadv a
+crsetv $0
+clearb
+@6,22,example.mse
+@6,20,example.mse
+loadv b
+crsetv $1
+clearb
+@6,24,example.mse
+setb int 6
+setr2
+clearb
+loadv $1
+setr1
+clearb
+op +
+clearr1
+clearr2
+clearv $1
+setr2
+clearb
+loadv $0
+setr1
+clearb
+op +
+clearr1
+clearr2
+clearv $0
+setc
+setv c
+clearb
+@7,6,example.mse
+@7,11,example.mse
+setb string a =
+crsetv $0
+clearb
+@7,14,example.mse
+loadv a
+crsetv $1
+clearb
+@7,5,example.mse
+loadv print
+crsetv $2
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+loadv $1
+clearv $1
+pushm
+clearb
+call $2 2
+clearv $2
+clearb
+@8,6,example.mse
+@8,11,example.mse
+setb string b =
+crsetv $0
+clearb
+@8,14,example.mse
+loadv b
+crsetv $1
+clearb
+@8,5,example.mse
+loadv print
+crsetv $2
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+loadv $1
+clearv $1
+pushm
+clearb
+call $2 2
+clearv $2
+clearb
+@9,6,example.mse
+@9,11,example.mse
+setb string c =
+crsetv $0
+clearb
+@9,14,example.mse
+loadv c
+crsetv $1
+clearb
+@9,5,example.mse
+loadv print
+crsetv $2
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+loadv $1
+clearv $1
+pushm
+clearb
+call $2 2
+clearv $2
+clearb
+@11,6,example.mse
+@11,14,example.mse
+@11,9,example.mse
+@11,7,example.mse
+loadv c
+crsetv $0
+clearb
+@11,12,example.mse
+setb int 10
+setr2
+clearb
+loadv $0
+setr1
+clearb
+op >
+clearr1
+clearr2
+clearv $0
+jmpz $0
+clearb
+@11,23,example.mse
+setb string c > 10
+jmp $1
+label $0
+clearb
+@11,35,example.mse
+setb string c <= 10
+label $1
+crsetv $0
+clearb
+@11,5,example.mse
+loadv print
+crsetv $1
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+call $1 1
+clearv $1
+clearb
+@13,5,example.mse
+createv int[] arr
+@13,20,example.mse
+@13,21,example.mse
+setb int 1
+pushm
+clearb
+@13,24,example.mse
+setb int 2
+pushm
+clearb
+@13,27,example.mse
+setb int 3
+pushm
+clearb
+@13,30,example.mse
+setb int 4
+pushm
+clearb
+@13,33,example.mse
+setb int 5
+pushm
+clearb
+setb array 5
+apush 5
+setc
+setv arr
+clearb
+@15,2,example.mse
+@15,16,example.mse
+@15,8,example.mse
+@15,7,example.mse
+loadv arr
+getp length
+crsetv $0
+clearb
+@15,19,example.mse
+setb int 10
+setr2
+clearb
+loadv $0
+setr1
+clearb
+op >
+clearr1
+clearr2
+clearv $0
+jmpz $2
+clearb
+@15,22,example.mse
+@16,10,example.mse
+@16,27,example.mse
+setb string arr.length > 10
+crsetv $0
+clearb
+@16,9,example.mse
+loadv print
+crsetv $1
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+call $1 1
+clearv $1
+clearb
+jmp $3
+label $2
+clearb
+@17,8,example.mse
+@18,10,example.mse
+@18,28,example.mse
+setb string arr.length <= 10
+crsetv $0
+clearb
+@18,9,example.mse
+loadv print
+crsetv $1
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+call $1 1
+clearv $1
+clearb
+label $3
+clearbe
+@21,3,example.mse
+@21,8,example.mse
+createv int i
+@21,19,example.mse
+setb int 0
+setv i
+clearb
+label $4
+@21,24,example.mse
+@21,22,example.mse
+loadv i
+crsetv $0
+clearb
+@21,29,example.mse
+@21,28,example.mse
+loadv arr
+getp length
+setr2
+clearb
+loadv $0
+setr1
+clearb
+op <
+clearr1
+clearr2
+clearv $0
+jmpz $6
+clearb
+@21,49,example.mse
+@22,6,example.mse
+@22,12,example.mse
+@22,9,example.mse
+loadv i
+crsetv $0
+clearb
+@22,14,example.mse
+setb int 1
+setr2
+clearb
+loadv $0
+setr1
+clearb
+op ==
+clearr1
+clearr2
+clearv $0
+jmpz $7
+clearb
+@22,17,example.mse
+@23,14,example.mse
+@23,31,example.mse
+setb string skipping index 
+crsetv $0
+clearb
+@23,34,example.mse
+loadv i
+crsetv $1
+clearb
+@23,13,example.mse
+loadv print
+crsetv $2
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+loadv $1
+clearv $1
+pushm
+clearb
+call $2 2
+clearv $2
+clearb
+@24,16,example.mse
+jmp $5
+jmp $7
+label $7
+clearbe
+@27,10,example.mse
+@27,16,example.mse
+setb string arr[
+crsetv $0
+clearb
+@27,19,example.mse
+loadv i
+crsetv $1
+clearb
+@27,26,example.mse
+setb string ] =
+crsetv $2
+clearb
+@27,32,example.mse
+@27,31,example.mse
+loadv arr
+crsetv $3
+clearb
+@27,33,example.mse
+loadv i
+setr2
+clearb
+loadv $3
+clearv $3
+setr1
+clearb
+op [
+clearr1
+crsetv $3
+clearb
+@27,9,example.mse
+loadv print
+crsetv $4
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+loadv $1
+clearv $1
+pushm
+clearb
+loadv $2
+clearv $2
+pushm
+clearb
+loadv $3
+clearv $3
+pushm
+clearb
+call $4 4
+clearv $4
+clearb
+@29,6,example.mse
+@29,12,example.mse
+@29,9,example.mse
+loadv i
+crsetv $0
+clearb
+@29,14,example.mse
+setb int 3
+setr2
+clearb
+loadv $0
+setr1
+clearb
+op ==
+clearr1
+clearr2
+clearv $0
+jmpz $8
+clearb
+@29,17,example.mse
+@30,14,example.mse
+@30,34,example.mse
+setb string stopping at index 
+crsetv $0
+clearb
+@30,37,example.mse
+loadv i
+crsetv $1
+clearb
+@30,13,example.mse
+loadv print
+crsetv $2
+clearb
+loadv $0
+clearv $0
+pushm
+clearb
+loadv $1
+clearv $1
+pushm
+clearb
+call $2 2
+clearv $2
+clearb
+@31,13,example.mse
+jmp $6
+jmp $8
+label $8
+clearbe
+label $5
+@21,38,example.mse
+@21,38,example.mse
+loadv i
+getp @
+crsetv $0
+clearb
+@21,44,example.mse
+@21,42,example.mse
+loadv i
+crsetv $1
+clearb
+@21,46,example.mse
+setb int 1
+setr2
+clearb
+loadv $1
+setr1
+clearb
+op +
+clearr1
+clearr2
+clearv $1
+setr1
+clearb
+loadv $0
+setp1
+clearv $0
+clearr1
+clearb
+jmp $4
+label $6
+clearv i
+clearv a
+clearv b
+clearv c
+clearv arr
