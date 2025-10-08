@@ -402,13 +402,11 @@ impl Bytecoder {
 
             Statement::For(for_stmt) => {
                 let start_label = state.get_label();
+                let continue_label = state.get_label();
                 let end_label = state.get_label();
 
                 let previous_continue = state.last_continue_label.clone();
                 let previous_end = state.last_break_label.clone();
-
-                state.last_continue_label = Some(format!("${}", start_label));
-                state.last_break_label = Some(format!("${}", end_label));
 
                 if let Some(initializer) = &for_stmt.initializer {
                     let init_result = Self::compile_statement(initializer, state)?;
@@ -417,6 +415,9 @@ impl Bytecoder {
                         result.push_str("clearb\n");
                     }
                 }
+
+                state.last_continue_label = Some(format!("${}", continue_label));
+                state.last_break_label = Some(format!("${}", end_label));
 
                 result.push_str(&format!("label ${}\n", start_label));
 
@@ -432,6 +433,8 @@ impl Bytecoder {
                 if let Statement::Declaration(decl) = for_stmt.body.as_ref() {
                     result.push_str(&format!("clearv {}\n", decl.name));
                 }
+
+                result.push_str(&format!("label ${}\n", continue_label));
 
                 if let Some(increment) = &for_stmt.increment {
                     let inc_result = Self::compile_statement(increment, state)?;
